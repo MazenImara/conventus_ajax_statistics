@@ -11,7 +11,7 @@ function conventus_ajax_statistics_install() {
  * Implements hook_uninstall().
  */
 function conventus_ajax_statistics_uninstall() {
-
+  \Drupal::configFactory()->getEditable('conventus_ajax_statistics.settings')->delete();
 }
 
 /**

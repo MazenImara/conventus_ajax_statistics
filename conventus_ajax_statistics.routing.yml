@@ -8,7 +8,7 @@ ajax_statistics.count:
     _permission: 'access content'
 
 ajax_statistics.settings:
-  path: '/admin/config/system/ajax_statistics'
+  path: '/admin/config/system/conventus_ajax_statistics'
   defaults:
     _form: 'Drupal\conventus_ajax_statistics\Form\SettingsForm'
     _title: 'Settings'

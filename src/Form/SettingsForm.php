@@ -74,7 +74,7 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'number',
       '#title' => t('Period'),
       '#default_value' => $config->get('period'),
-      '#description' => t('Number of days'),
+      '#description' => t('Number of days, if empty the defult is 7 days'),
     );
 
     return parent::buildForm($form, $form_state);

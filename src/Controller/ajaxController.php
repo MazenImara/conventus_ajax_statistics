@@ -45,6 +45,9 @@ class ajaxController extends ControllerBase {
 	}
 	static public function reset() {
 		$period = \Drupal::config('conventus_ajax_statistics.settings')->get('period');
+		if ($period == NULL) {
+			$period = 1;
+		}
 		$result = \Drupal::database()->select('node_popular', 'q')
 		                             ->fields('q', ['nid', 'totalviews', 'daycount', 'timestamp', 'weeks'])
 		                             ->execute();
