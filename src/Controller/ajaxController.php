@@ -36,7 +36,7 @@ class ajaxController extends ControllerBase {
 			} else {
 				\Drupal::database()->insert('node_popular')
 				                   ->fields(['nid', 'totalviews', 'daycount', 'timestamp'])
-				                   ->values([$nid, 0, 1, $timestamp])
+				                   ->values([$nid, 1, 1, $timestamp])
 				                   ->execute();
 			}
 		}
