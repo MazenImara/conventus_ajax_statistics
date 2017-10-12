@@ -4,3 +4,4 @@ type: module
 package: Storleden
 core: 8.x
 configure: ajax_statistics.settings
+

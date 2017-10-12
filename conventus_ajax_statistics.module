@@ -3,19 +3,17 @@
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\NodeInterface;
 
+/**
+ * Implements hook_page_attachments_alter().
+ */
 function conventus_ajax_statistics_page_attachments_alter(array &$page) {
   // Attach the flot asset on every page.
-  /*
   if (\Drupal::currentUser()->isAnonymous()) {
+    if ($node = \Drupal::routeMatch()->getParameter('node')) {
+      $page['#attached']['library'][] = 'conventus_ajax_statistics/ajax_statistics_lib';
+      $page['#attached']['drupalSettings']['nid'] = $node->id();
+    }
   }
-  */
-  $page['#attached']['library'][] = 'conventus_ajax_statistics/ajax_statistics_lib';
-  $nid = NULL;
-  $node = \Drupal::routeMatch()->getParameter('node');
-  if ($node) {
-    $nid = $node->id();
-  }
-  $page['#attached']['drupalSettings']['nid'] = $nid;
 }
 
 /**
