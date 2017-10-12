@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function conventus_ajax_statistics_install() {
+  updateSchema();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function conventus_ajax_statistics_uninstall() {
+
+}
+
+/**
+ * Mandatory initial run of node_access_rebuild() Drupal core function.
+ */
+function conventus_ajax_statistics_update_8001() {
+  updateSchema();
+}
+
+function updateSchema()
+{
+
+}
+
+function conventus_ajax_statistics_schema() {
+  if (!db_table_exists('node_popular')) {
+    $schema['node_popular'] = [
+      'fields' => [
+        'nid' => [
+          'type' => 'serial',
+          'unsigned' => TRUE,
+          'not null' => TRUE
+        ],
+        'totalviews' => [
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
+          'size' => 'big',
+        ],
+        'daycount' => [
+          'description' => 'The total number of times the {node} has been viewed today.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
+          'size' => 'medium',
+        ],
+        'timestamp' => [
+          'description' => 'The most recent time the {node} has been viewed.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
+        ],
+        'weeks' => [
+          'type' => 'text',
+          'not null' => FALSE
+        ],
+      ],
+      'primary key' => ['nid'],
+    ];
+  }
+  return $schema;
+}

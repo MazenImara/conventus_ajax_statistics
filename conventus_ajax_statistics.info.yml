@@ -1,0 +1,5 @@
+name: 'Conventus Ajax Statistics'
+description: 'count statistics via ajax'
+type: module
+package: Storleden
+core: 8.x

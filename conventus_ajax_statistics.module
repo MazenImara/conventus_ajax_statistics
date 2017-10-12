@@ -1,0 +1,54 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
+
+function conventus_ajax_statistics_page_attachments_alter(array &$page) {
+  // Attach the flot asset on every page.
+  /*
+  if (\Drupal::currentUser()->isAnonymous()) {
+  }
+  */
+  $page['#attached']['library'][] = 'conventus_ajax_statistics/ajax_statistics_lib';
+  $nid = NULL;
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node) {
+    $nid = $node->id();
+  }
+  $page['#attached']['drupalSettings']['nid'] = $nid;
+}
+
+/**
+ * Implements hook_cron().
+ */
+function conventus_ajax_statistics_cron() {
+  Drupal\conventus_ajax_statistics\Controller\ajaxController::reset();
+  $last_run = \Drupal::state()->get('ajax_statistics.last_run', 0);
+  // If 60 minutes passed since last time.
+  if ((REQUEST_TIME - $last_run) > (3600 * 24)) {
+    // Do something.
+    Drupal\conventus_ajax_statistics\Controller\ajaxController::reset();
+    // Update last run.
+    \Drupal::state()->set('ajax_statistics.last_run', REQUEST_TIME);
+  }
+}
+
+/**
+ * Implements hook_views_api.
+ */
+function conventus_ajax_statistics_views_api() {
+  return (array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'conventus_ajax_statistics'),
+  ));
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for node entities.
+ */
+function conventus_ajax_statistics_node_predelete(EntityInterface $node) {
+  // Clean up statistics table when node is deleted.
+  db_delete('node_counter')
+    ->condition('nid', $node->id())
+    ->execute();
+}

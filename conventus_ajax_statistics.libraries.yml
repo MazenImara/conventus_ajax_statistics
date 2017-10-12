@@ -1,0 +1,9 @@
+ajax_statistics_lib:
+  version: 1.x
+  js:
+    js/ajax_statistics.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal.ajax
+    - core/drupalSettings

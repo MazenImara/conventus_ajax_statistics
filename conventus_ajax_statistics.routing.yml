@@ -1,0 +1,16 @@
+ajax_statistics.count:
+  path: '/ajax_statistics_count/{nid}'
+  defaults:
+    _title: ''
+    _controller: '\Drupal\conventus_ajax_statistics\Controller\ajaxController::count'
+  methods:  [POST]
+  requirements:
+    _permission: 'access content'
+
+ajax_statistics.settings:
+  path: '/admin/config/system/ajax_statistics'
+  defaults:
+    _form: 'Drupal\conventus_ajax_statistics\Form\SettingsForm'
+    _title: 'Settings'
+  requirements:
+    _permission: 'administer statistics'
